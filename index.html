@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="HandheldFriendly" content="True" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#c7ecee">
+<link rel="shortcut icon" href="data:image/x-icon;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAACXBIWXMAAA7EAAAOxAGVKw4bAAABqklEQVQ4jZ2Tv0scURDHP7P7SGWh14mkuXJZEH8cgqUWcklAsLBbCEEJSprkD7hD/4BUISHEkMBBiivs5LhCwRQBuWgQji2vT7NeYeF7GxwLd7nl4knMwMDMfL8z876P94TMLt+8D0U0EggQSsAjwMvga8ChJAqxqjTG3m53AQTg4tXHDRH9ABj+zf6oytbEu5d78nvzcyiivx7QXBwy46XOi5z1jbM+Be+nqVfP8yzuD3FM6rzIs9YE1hqGvDf15cVunmdx7w5eYJw1pcGptC9CD4gBUuef5Ujq/BhAlTLIeFYuyfmTZgeYv+2nPt1a371P+Hm1WUPYydKf0lnePwVmh3hnlcO1uc7yvgJUDtdG8oy98kduK2KjeHI0fzCQINSXOk/vlXBUOaihAwnGWd8V5r1uhe1VIK52V6JW2D4FqHZX5lphuwEE7ooyaN7gjLMmKSwYL+pMnV+MA/6+g8RYa2Lg2RBQbj4+rll7uymLy3coiuXb5PdQVf7rKYvojAB8Lf3YUJUHfSYR3XqeLO5JXvk0dhKqSqQQoCO+s5AIxCLa2Lxc6ALcAPwS26XFskWbAAAAAElFTkSuQmCC" />
+
+
+  <title>Post Generator</title>
+  <meta name="description" content="Post Generator - Generate 1080x1080 square shape image size Social Media Post and Status."/>
+
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.3/css/bulma.min.css" integrity="sha512-IgmDkwzs96t4SrChW29No3NXBIBv8baW490zk5aXvhCD8vuZM3yUSkbyTBcXohkySecyzIrUwiF/qV0cuPcL3Q==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anek+Tamil:wght@100..800&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fontfaceobserver/2.3.0/fontfaceobserver.min.js" integrity="sha512-7g/mtWY/pF5yAwrcHhRBBrDK3Tr1Xbjaweymp5/jiEmKJurJkRfi5grW5mKQx78wPRoQPOu1zfeWdJtsCw8QsQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@melloware/coloris@0.22.0/dist/coloris.min.css" integrity="sha256-/l5LFjgUyBUmByCzNvkmdbwGU67dxic3wXL7mncTorA=" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/@melloware/coloris@0.22.0/dist/umd/coloris.min.js" integrity="sha256-ww4FjsGboXzCDLqjt6L3OOsIfm8riBKxyLb6QX181XU=" crossorigin="anonymous"></script>
+
+<style>
+    #form-container {
+      display: flex;
+      font-family: "Anek Tamil", sans-serif;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .card {
+      border-radius: 15px;
+      font-family: "Anek Tamil", sans-serif;
+    }
+
+    #instagramCanvas {
+      max-width: 100%;
+      height: auto;
+      display: none;
+      font-family: "Anek Tamil", sans-serif;
+    }
+
+    body {
+      background-color: #fcf837;
+      font-family: "Anek Tamil", sans-serif;
+      font-weight: 500;
+    }
+
+    .label {
+      color: #333;
+      font-family: "Anek Tamil", sans-serif;
+    }
+
+    .button {
+      background-color: #4caf50;
+      color: #fff;
+      font-family: "Anek Tamil", sans-serif;
+      font-weight: 600;
+      box-shadow: 0 0 5px rgba(188, 188, 189, 0.5);
+    }
+
+    .button:hover {
+      background-color: #45a049;
+    }
+
+    .notification.is-success {
+      background-color: #5cb85c;
+      font-weight: 600;
+      box-shadow: 0 0 5px rgba(188, 188, 189, 0.5);
+    }
+
+    .notification.is-danger {
+      background-color: #d9534f;
+      font-weight: 600;
+      box-shadow: 0 0 5px rgba(188, 188, 189, 0.5);
+    }
+
+    .font-picker {
+      width: 50px;
+    }
+
+    canvas {
+      font-family: "Anek Tamil", sans-serif;
+      image-rendering: optimizeSpeed;
+      image-rendering: -moz-crisp-edges;
+      image-rendering: -webkit-optimize-contrast;
+      image-rendering: -o-crisp-edges;
+      image-rendering: crisp-edges;
+      -ms-interpolation-mode: nearest-neighbor;
+   }
+
+   input[type="number"] {
+      padding: 10px;
+      border: 2px solid #4CAF50;
+      border-radius: 15px;
+      font-size: 16px;
+      outline: none;
+      transition: border-color 0.3s;
+    }
+
+  input[type="number"]:hover {
+    border-color: #999;
+  }
+
+  input[type="number"]:focus {
+    border-color: #4CAF50;
+    box-shadow: 0 0 5px rgba(76, 175, 80, 0.5);
+  }
+
+  input[type="color"] {
+      border: 2px solid #4CAF50;
+      border-radius: 15px;
+      font-size: 16px;
+      outline: none;
+      transition: border-color 0.3s;
+  }
+
+  .textarea {
+      padding: 10px;
+      border: 2px solid #4CAF50;
+      border-radius: 15px;
+      font-size: 16px;
+      outline: none;
+      transition: border-color 0.3s;
+      resize: vertical;
+      min-height: 100px;
+    }
+
+    .textarea:hover {
+      border-color: #45a049;
+    }
+
+    .textarea:focus {
+      border-color: #2196F3;
+      box-shadow: 0 0 5px rgba(33, 150, 243, 0.5);
+    }
+    .picker {
+      width: 150px;
+      height: 32px;
+      padding: 0 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-family: inherit;
+      font-size: inherit;
+      font-weight: inherit;
+      box-sizing: border-box;
+    }
+    input[type=number] {
+	    width: 5em;
+	    padding: 0.5em;
+	    border: .2em solid #E91E63;
+	    border-radius: 1em;
+	    text-align: center;
+	    color: #E91E63;
+	    appearance: textfield;
+	    margin: 0;
+	    &::-webkit-inner-spin-button {
+		  opacity: 1;
+	   	background: red;
+	  }
+  }
+</style>
+
+</head>
+<body>
+
+<section class="section">
+      <div class="container">
+        <div class="columns is-centered">
+        <div class="column is-half">
+        <div class="card">
+          <div class="card-content">
+            <div class="field">
+              <label for="textInput" class="label">Enter Text (3-600 words):</label>
+              <textarea id="textInput" class="textarea" required rows="10" cols="50"></textarea>
+            </div>
+            <div class="field">
+              <label class="label">Background Color:</label>
+              <div class="control">
+                <input type="text" id="bgColorPicker" class="picker color-picker" value="#F5F5F5" data-coloris>
+              </div>
+            </div>
+            <div class="field">
+              <label class="label">Text Color:</label>
+              <div class="control">
+                <input type="text" id="textColorPicker" class="picker color-picker" value="#000000" data-coloris>
+              </div>
+            </div>
+            <div class="field">
+              <label for="fontSizeInput" class="label">Font Size (px):</label>
+              <div class="control">
+                <input type="number" id="fontSizeInput" class="input" value="35">
+              </div>
+            </div>
+            <div class="field">
+                <label for="TextHeight" class="label">Text Height:</label>
+                <div class="control">
+                  <input type="number" id="TextHeight" class="input" value="4.2">
+                </div>
+              </div>
+              <div class="field">
+                <label for="LineHeight" class="label">Line Height:</label>
+                <div class="control">
+                  <input type="number" id="LineHeight" class="input" value="65">
+                </div>
+              </div>
+              <div class="field">
+                <label for="TextWidth" class="label">Text Width:</label>
+                <div class="control">
+                  <input type="number" id="TextWidth" class="input" value="500">
+                </div>
+              </div>
+            <div class="field is-grouped">
+              <div class="control">
+              <button id="generateInstagramPost" class="button is-danger is-rounded">Generate</button>
+              <button onclick="clearForm()" class="button is-warning is-rounded">Clear</button>
+              </div>
+            </div>
+            <div id="notificationArea" class="mt-4"></div>
+            <br>
+            <div class="field">
+                <a id="downloadButton" class="button is-info is-rounded" style="display: none;" download="instagram_post.png">Download Image</a>
+              </div>
+            <br>
+            <div style="font-family: 'Anek Tamil', sans-serif;">
+            <canvas id="instagramCanvas" width="1080px" height="1080px" style="display: none; width:100%; height:100%"></canvas>
+           </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+</section>
+ 
+<script>
+
+  const canonicalLink = document.createElement('link');
+  canonicalLink.rel = 'canonical';
+  canonicalLink.href = window.location.href;
+  document.head.appendChild(canonicalLink);
+
+  Coloris({
+  themeMode: 'dark',
+  alpha: false,
+  formatToggle: true,
+  el: '.coloris',
+      swatches: [
+        '#264653',
+        '#2a9d8f',
+        '#e9c46a',
+        '#f4a261',
+        '#e76f51',
+        '#d62828',
+        '#023e8a',
+        '#0077b6',
+        '#0096c7',
+        '#00b4d8',
+        '#48cae4'
+      ]
+});
+
+document.addEventListener('DOMContentLoaded', function () {
+  const generateButton = document.getElementById('generateInstagramPost');
+  generateButton.addEventListener('click', generateInstagramPost);
+});
+
+  function saveFormData() {
+    const formData = {
+      textInput: document.getElementById('textInput').value,
+      bgColorPicker: document.getElementById('bgColorPicker').value,
+      textColorPicker: document.getElementById('textColorPicker').value,
+      fontSizeInput: document.getElementById('fontSizeInput').value,
+      TextHeight: document.getElementById('TextHeight').value,
+      LineHeight: document.getElementById('LineHeight').value,
+      TextWidth: document.getElementById('TextWidth').value,
+    };
+
+    localStorage.setItem('formData', JSON.stringify(formData));
+  }
+
+  function loadFormData() {
+    const savedFormData = localStorage.getItem('formData');
+    if (savedFormData) {
+      const formData = JSON.parse(savedFormData);
+      document.getElementById('textInput').value = formData.textInput;
+      document.getElementById('bgColorPicker').value = formData.bgColorPicker;
+      document.getElementById('textColorPicker').value = formData.textColorPicker;
+      document.getElementById('fontSizeInput').value = formData.fontSizeInput;
+      document.getElementById('TextHeight').value = formData.TextHeight;
+      document.getElementById('LineHeight').value = formData.LineHeight;
+      document.getElementById('TextWidth').value = formData.TextWidth;
+    }
+  }
+
+  window.addEventListener('load', loadFormData);
+
+  function generateInstagramPost() {
+
+    const LoadmyFont = new FontFace(
+      'Anek Tamil',
+      'url(https://fonts.gstatic.com/s/anektamil/v4/XLYJIZH2bYJHGYtPGSbUB8JKTp-_9n55SsLHW0WZez6TjtkDu3uNnCB6qw.ttf)'
+    );
+
+    LoadmyFont.load().then(function (font) {
+    document.fonts.add(font);
+
+    saveFormData();
+
+    const textInput = document.getElementById('textInput').value.trim();
+    const bgColorPicker = document.getElementById('bgColorPicker');
+    const textColorPicker = document.getElementById('textColorPicker');
+    const fontSizeInput = document.getElementById('fontSizeInput');
+    const TextHeight = document.getElementById('TextHeight');
+    const LineHeight = document.getElementById('LineHeight');
+    const TextWidth = document.getElementById('TextWidth');
+
+    const bgColor = bgColorPicker.value;
+    const textColor = textColorPicker.value;
+    const fontSize = parseInt(fontSizeInput.value);
+
+    const canvas = document.getElementById('instagramCanvas');
+    const ctx = canvas.getContext('2d');
+
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = bgColor;
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+   setTimeout(function() {
+    ctx.font = '600 ' + fontSize + 'px "Anek Tamil", sans-serif';
+    ctx.fillStyle = textColor;
+    ctx.textAlign = 'center';
+    ctx.imageSmoothingEnabled = false;
+
+    const maxWidth = canvas.width - parseInt(TextWidth.value);
+    const lineHeight = parseInt(LineHeight.value);
+    const x = canvas.width / 2;
+    const y = canvas.height / parseInt(TextHeight.value);
+
+    function wrapText(context, text, x, y, maxWidth, lineHeight) {
+      const lines = text.split('\n');
+      for (let i = 0; i < lines.length; i++) {
+        let line = '';
+        const words = lines[i].split(' ');
+        for (let n = 0; n < words.length; n++) {
+          const testLine = line + words[n] + ' ';
+          const metrics = context.measureText(testLine);
+          const testWidth = metrics.width;
+          if (testWidth > maxWidth && n > 0) {
+            context.fillText(line.trim(), x, y + (i * lineHeight));
+            line = words[n] + ' ';
+          } else {
+            line = testLine;
+          }
+        }
+        context.fillText(line.trim(), x, y + (i * lineHeight));
+      }
+    }
+
+    wrapText(ctx, textInput, x, y, maxWidth, lineHeight);
+   }, 1000);
+
+    const notificationArea = document.getElementById('notificationArea');
+    notificationArea.innerHTML = '';
+
+    if (textInput === "") {
+      notificationArea.innerHTML = '<div class="notification is-danger">Please enter text.</div>';
+      return;
+    }
+
+    const wordCount = textInput.split(/\s+/).length;
+
+    if (wordCount < 3 || wordCount > 600) {
+      notificationArea.innerHTML = '<div class="notification is-danger">Text must be between 3 and 600 words.</div>';
+      return;
+    }
+
+    notificationArea.innerHTML = '<div class="notification is-success">Post generated successfully!</div>';
+    canvas.style.display = 'block';
+
+    const downloadButton = document.getElementById('downloadButton');
+    downloadButton.style.display = 'block';
+    canvas.scrollIntoView({ behavior: 'smooth' });
+  }
+)}
+function generateRandomString(length) {
+  let result = '';
+  const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  const charactersLength = characters.length;
+  for (let i = 0; i < length; i++) {
+    result += characters.charAt(Math.floor(Math.random() * charactersLength));
+  }
+  return result;
+}
+
+function downloadCanvasImage() {
+  const canvas = document.getElementById('instagramCanvas');
+  const link = document.createElement('a');
+  const fileName = 'sanweb-' + generateRandomString(10) + '.png';
+  link.download = fileName;
+  link.href = canvas.toDataURL('image/png');
+  link.click();
+}
+
+const downloadButton = document.getElementById('downloadButton');
+downloadButton.addEventListener('click', downloadCanvasImage);
+
+function clearForm() {
+  document.getElementById('textInput').value = '';
+  document.getElementById('bgColorPicker').value = '#F5F5F5';
+  document.getElementById('textColorPicker').value = '#000000';
+  document.getElementById('fontSizeInput').value = '35';
+  document.getElementById('TextHeight').value = '4.2';
+  document.getElementById('LineHeight').value = '65';
+  document.getElementById('TextWidth').value = '500';
+
+  const canvas = document.getElementById('instagramCanvas');
+  const ctx = canvas.getContext('2d');
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  document.getElementById('notificationArea').innerHTML = '';
+  document.getElementById('instagramCanvas').style.display = 'none';
+  document.getElementById('downloadButton').style.display = 'none';
+  localStorage.removeItem('formData');
+}
+
+</script> 
+ 
+</body>
+</html>

@@ -1,0 +1,5 @@
+# Netlify redirects file, edit with your domain
+# https://www.netlify.com/docs/redirects/
+
+https://quotesimage.netlify.app/* https://create.mskian.com/:splat 301!
+http://quotesimage.netlify.app/* https://create.mskian.com/:splat 301!
