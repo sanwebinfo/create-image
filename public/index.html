@@ -164,6 +164,21 @@
 	   	background: red;
 	  }
   }
+   textarea {
+      font-family: 'Anek Tamil', sans-serif;
+    }
+    ::-webkit-input-placeholder {
+      font-family: 'Anek Tamil', sans-serif;
+    }
+    ::-moz-placeholder {
+      font-family: 'Anek Tamil', sans-serif;
+    }
+    :-ms-input-placeholder {
+      font-family: 'Anek Tamil', sans-serif;
+    }
+    :-moz-placeholder {
+      font-family: 'Anek Tamil', sans-serif;
+    }
 </style>
 
 </head>
@@ -182,7 +197,7 @@
             <div class="field">
               <label class="label">Background Color:</label>
               <div class="control">
-                <input type="text" id="bgColorPicker" class="picker color-picker" value="#F5F5F5" data-coloris>
+                <input type="text" id="bgColorPicker" class="picker color-picker" value="#dfe6e9" data-coloris>
               </div>
             </div>
             <div class="field">
@@ -224,11 +239,19 @@
             <div id="notificationArea" class="mt-4"></div>
             <br>
             <div class="field">
-                <a id="downloadButton" class="button is-info is-rounded" style="display: none;" download="instagram_post.png">Download Image</a>
-              </div>
+                <div class="control">
+                 <a id="downloadButton" class="button is-link is-rounded" style="display: none;" download="instagram_post.png">Download Image</a>
+                </div>
+            </div>
             <br>
             <div style="font-family: 'Anek Tamil', sans-serif;">
-            <canvas id="instagramCanvas" width="1080px" height="1080px" style="display: none; width:100%; height:100%"></canvas>
+             <canvas id="instagramCanvas" width="1080px" height="1080px" style="display: none; width:100%; height:100%"></canvas>
+           </div>
+           <br>
+           <div class="field">
+            <div class="control">
+              <a id="shareButton" class="button is-info is-rounded" style="display: none;">Share Image</a>
+            </div>
            </div>
           </div>
         </div>
@@ -252,13 +275,13 @@
       swatches: [
         '#264653',
         '#2a9d8f',
-        '#e9c46a',
+        '#E9D5FF',
         '#f4a261',
-        '#e76f51',
+        '#dfe6e9',
         '#d62828',
         '#023e8a',
         '#0077b6',
-        '#0096c7',
+        '#FEF08A',
         '#00b4d8',
         '#48cae4'
       ]
@@ -267,6 +290,8 @@
 document.addEventListener('DOMContentLoaded', function () {
   const generateButton = document.getElementById('generateInstagramPost');
   generateButton.addEventListener('click', generateInstagramPost);
+  const shareButton = document.getElementById('shareButton');
+  shareButton.addEventListener('click', shareCanvasImage);
 });
 
   function saveFormData() {
@@ -384,6 +409,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
     const downloadButton = document.getElementById('downloadButton');
     downloadButton.style.display = 'block';
+    const shareButton = document.getElementById('shareButton');
+    shareButton.style.display = 'block';
     canvas.scrollIntoView({ behavior: 'smooth' });
   }
 )}
@@ -411,7 +438,7 @@ downloadButton.addEventListener('click', downloadCanvasImage);
 
 function clearForm() {
   document.getElementById('textInput').value = '';
-  document.getElementById('bgColorPicker').value = '#F5F5F5';
+  document.getElementById('bgColorPicker').value = '#dfe6e9';
   document.getElementById('textColorPicker').value = '#000000';
   document.getElementById('fontSizeInput').value = '35';
   document.getElementById('TextHeight').value = '4.2';
@@ -427,6 +454,23 @@ function clearForm() {
   document.getElementById('downloadButton').style.display = 'none';
   localStorage.removeItem('formData');
 }
+
+function shareCanvasImage() {
+    const canvas = document.getElementById('instagramCanvas');
+    if ('share' in navigator) {
+      canvas.toBlob(function(blob) {
+        navigator.share({
+          files: [new File([blob], 'instagram_post.png', { type: 'image/png' })],
+          title: 'Share via',
+          text: 'Check out this awesome post generated using Post Generator!',
+        });
+      });
+    } else {
+      const notificationArea = document.getElementById('notificationArea');
+      notificationArea.innerHTML = '';
+      notificationArea.innerHTML = '<div class="notification is-warning">Native share API not supported in your browser.</div>';
+    }
+  }
 
 </script> 
  
